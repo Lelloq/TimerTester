@@ -26,6 +26,11 @@ void iterateElements(int a, int b)
 	}
 }
 
+int differentTypes(float a, int b)
+{
+	return static_cast<int>(a) + b;
+}
+
 const int g_arrayElements{ 10000 };
 void sortArray(std::array<int, g_arrayElements>& array)
 {
@@ -67,4 +72,6 @@ int main()
     t.measure<void>(sortArray, array);
 	std::cout << "Measuring iteration \n";
 	t.measure<void>(iterateElements, 0, 999999999);
+	std::cout << "Testing different types \n";
+	t.measure<int>(differentTypes, 1.0f, 20);
 }
