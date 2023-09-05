@@ -63,5 +63,8 @@ int main()
 	std::array<int, g_arrayElements> array;
 	std::iota(array.rbegin(), array.rend(), 1);
 
+	std::cout << "Measuring sorting:" << "\n";
     t.measure<void>(sortArray, array);
+	std::cout << "Measuring iteration \n";
+	t.measure<void>(iterateElements, 0, 999999999);
 }
