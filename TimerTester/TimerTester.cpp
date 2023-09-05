@@ -63,15 +63,14 @@ void sortArray(std::array<int, g_arrayElements>& array)
 int main()
 {
     std::cout << "Hello World!\n";
-    Timer t;
 
 	std::array<int, g_arrayElements> array;
 	std::iota(array.rbegin(), array.rend(), 1);
 
-	std::cout << "Measuring sorting:" << "\n";
-    t.measure<void>(sortArray, array);
-	std::cout << "Measuring iteration \n";
-	t.measure<void>(iterateElements, 0, 999999999);
-	std::cout << "Testing different types \n";
-	t.measure<int>(differentTypes, 1.0f, 20);
+	std::cout << "Measuring sorting: ";
+    std::cout << Timer::measure<void>(sortArray, array) << "ms.\n";
+	std::cout << "Measuring iteration: ";
+	std::cout << Timer::measure<void>(iterateElements, 0, 999999999) << "ms.\n";
+	std::cout << "Testing different types: ";
+	std::cout << Timer::measure<int>(differentTypes, 1.0f, 20) << "ms.\n";
 }

@@ -8,24 +8,23 @@ private:
 	using Clock = std::chrono::steady_clock;
 	using Millisecond = std::chrono::duration<double, std::milli>;
 
-	std::chrono::time_point<Clock> _begin{ Clock::now() };
-public:
-	template<typename F,typename... Ts>
-	void measure(F (functor)(Ts...), Ts&&... args)
-	{
-		reset();
-		functor(std::forward<Ts>(args)...);
-		std::cout << "Time elapsed: " << elapsed() << "\n";
-		reset();
-	}
+	inline static std::chrono::time_point<Clock> _begin{ Clock::now() };
 
-	void reset()
+	static void reset()
 	{
 		_begin = Clock::now();
 	}
 
-	double elapsed() const
+	static double elapsed()
 	{
 		return std::chrono::duration_cast<Millisecond>(Clock::now() - _begin).count();
+	}
+public:
+	template<typename F,typename... Ts>
+	static double measure(F (functor)(Ts...), Ts&&... args)
+	{
+		reset();
+		functor(std::forward<Ts>(args)...);
+		return elapsed();
 	}
 };
